@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import ButtonDownloadScreenShot from './ButtonDownloadScreenshot'
 import { useList} from "react-firebase-hooks/database";
 import LineupDataService from "../services/LineupService";
-import fetchGamesGHIN from '../functions/fetchGamesGHIN';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
   let teamHcpAndProgs =
@@ -22,7 +21,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
   }
   let 
     teamMembers = [],
-    savedPlayers = [],
+    //savedPlayers = [],
     savedCourse, 
     savedGame, 
     savedLinkTime, 
@@ -154,8 +153,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
       let teamName = "team" + i;
       teamMembers = savedTeamTables[teamName];
       setManualCHCourseHandicaps(teamMembers);
-      setEachTeamsHcpAndProgs();
-      //teamHcpAndProgs = get('savedTeamHcpAndProgs');
+      //setEachTeamsHcpAndProgs();
       let teamHcp = teamHcpAndProgs[teamName][0];
       let teamProgs = teamHcpAndProgs[teamName][1];
       TeamTables[i] = (
@@ -174,92 +172,73 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     }
     return TeamTables;
   }
-
-  function loadLineupFromFirebase(props) 
-/*   {
-    players,
-    course,
-    game,
-    linkTime, 
-    playingDate, 
-    progs069, 
-    progAdj,
-    teamTables, 
-    teeTimeCount, 
-    textAreaValue,
-    teesSelected
-    }) */
-    {
-      savedPlayers = props.players;
+  
+  const LoadLineupFromFirebase = (props) => {
+      //savedPlayers = props.players;
       savedCourse = props.course;
       savedGame = props.game; 
       savedLinkTime = props.linkTime; 
       savedPlayingDate = props.playingDate; 
       savedProgs069 = props.progs069; 
       savedProgAdj = props.progAdj;
-      savedTeamTables = props.teamTables; 
+      savedTeamTables = props.teamTables;
       savedTeeTimeCount = props.teeTimeCount; 
       savedTextAreaValue = props.textAreaValue;
       savedTeesSelected = props.teesSelected;
-      const dataMode = 'ghin';
-      let updatedPlayers  = fetchGamesGHIN(dataMode, savedPlayers);
-      savedPlayers = updatedPlayers;
-      setEachTeamsHcpAndProgs();
-      
- 
- 
-  return (
-    <><br></br><br></br>
-    <div id='lineup-page' className='center'>
-    <table id="lineup-table">
-    <div id='lineup-table-div'>
-      <thead className='lineup-table-head'>
-        <tr>
-          <td>
-            {"Lineup for " + savedGame + ", " + savedPlayingDate + " at " + savedLinkTime + " at " + savedCourse.toUpperCase()}
-          </td>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <td>
-          {generateTeamTables()}
-          </td>
-        </tr>
-      </tbody>
-      <tfoot>
-        <tr>
-          <td className='center text-area-cell'>
-            <textarea 
-            id='lineup-textarea'
-            rows="8" cols="39"
-            value={savedTextAreaValue}
-            onFocus={event => event.target.value = savedTextAreaValue}
-            >
-            </textarea>
-          </td>
-        </tr>
-      </tfoot>
-    </div>
-    </table>
-      <br></br><br></br>
-      <ButtonDownloadScreenShot game={savedGame} course={savedCourse} element='lineup-table-div' format="PNG" page="Lineup" />
-      </div>
-    </>
-    )
-    }
+      return (
+          <>
+          <br></br><br></br>
+          <div id='lineup-page' className='center'>
+          <table id="lineup-table">
+          <div id='lineup-table-div'>
+            <thead className='lineup-table-head'>
+              <tr>
+                <td>
+                  {"Lineup for " + savedGame + ", " + savedPlayingDate + " at " + savedLinkTime + " at " + savedCourse.toUpperCase()}
+                </td>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                {generateTeamTables()}
+                </td>
+              </tr>
+            </tbody>
+            <tfoot>
+              <tr>
+                <td className='center text-area-cell'>
+                  <textarea 
+                  id='lineup-textarea'
+                  rows="8" cols="39"
+                  value={savedTextAreaValue}
+                  >
+                  </textarea>
+                </td>
+              </tr>
+            </tfoot>
+          </div>
+          </table>
+            <br></br><br></br>
+            <ButtonDownloadScreenShot game={savedGame} course={savedCourse} element='lineup-table-div' format="PNG" page="Lineup" />
+            </div>
+          </>
+        )
+      }
     
-   /* use react-firebase-hooks */
-   //eslint-disable-next-line
   const [Lineups, loading, error] = useList(LineupDataService.getAll());
   let savedLineup;
   if (!loading && !error){
     let mondayLineup = Lineups[0];
     savedLineup = mondayLineup.val();
-  loadLineupFromFirebase(savedLineup.lineup)
   }
 
-  return null;
+  return(
+    <>
+    <LoadLineupFromFirebase props={savedLineup.lineup} />
+    </>
+  )
+  
 }
 
 
