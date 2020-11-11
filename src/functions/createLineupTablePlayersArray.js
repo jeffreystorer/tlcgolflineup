@@ -11,8 +11,7 @@ export default function createLineupTablePlayersArrray (course,
   slopes, 
   pars, 
   teamTables,
-  teeTimeCount,
-  randomTeams) {
+  teeTimeCount) {
   const players = get('players');
 
   //declare some variables

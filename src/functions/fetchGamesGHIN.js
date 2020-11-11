@@ -2,11 +2,11 @@ import {get, set} from '../functions/localStorage';
 
 import { fetchRoster, aLocalNumber, aFirstName, anIndex, aGender }from '../functions/fetchRoster';
 
-export default function fetchGamesGHIN(dataMode) {
-  let players = get('players');
+export default function fetchGamesGHIN(dataMode, players) {
   if (dataMode === "ghin") {
     let requests = [];
     players.forEach(buildRequests);
+    console.table(players)
 
     Promise.all(requests).then(function (responses) {
       // Get a JSON object from each of the responses
@@ -72,6 +72,6 @@ export default function fetchGamesGHIN(dataMode) {
         item[4] = aGender(roster, ghinNumber);
         item[5] = aLocalNumber(roster, ghinNumber);
     }
-    set('players', players);
+    return players;
     }
   }

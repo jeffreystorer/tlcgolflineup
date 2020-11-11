@@ -1,35 +1,12 @@
-import React, { useState, useEffect} from 'react';
+import React from 'react';
 import TeamTable from './TeamTable';
 import { v4 as uuidv4 } from 'uuid';
-import {useRecoilValue, useRecoilState} from 'recoil';
-import * as state from '../state';
-import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
-import LineupsList from './LineupsList';
-//import { get, set } from '../functions/localStorage';
-import { useList } from "react-firebase-hooks/database";
+import ButtonDownloadScreenShot from './ButtonDownloadScreenshot'
+import { useList} from "react-firebase-hooks/database";
 import LineupDataService from "../services/LineupService";
-import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
+import fetchGamesGHIN from '../functions/fetchGamesGHIN';
 
 export default function LineupTableAll({ratings, slopes, pars}) {
-  //eslint-disable-next-line
-  const ghinNumber = useRecoilValue(state.ghinNumberState);
- const [course, setCourse] = useRecoilState(state.courseState);
-  const [game, setGame] = useRecoilState(state.gameState);
-  const games = useRecoilValue(state.gamesState);
-  const teesSelected = useRecoilValue(state.teesSelectedState);
-  const teamTablesObj = {
-    times: [],
-    team0:[],
-    team1:[],
-    team2:[],
-    team3:[],
-    team4:[],
-    team5:[],
-    team6:[],
-    team7:[],
-    team8:[],
-    team9:[],
-  }
   let teamHcpAndProgs =
   {
     team0:[0,0],
@@ -43,52 +20,38 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     team8:[0,0],
     team9:[0,0],
   }
-  let teamMembers = [];
-  const [teamTables, setTeamTables] = useState(teamTablesObj);
-  const [linkTime, setLinkTime] = useState("Time");
-  const [teeTimeCount, setTeeTimeCount] = useState("");
-  const [playingDate, setPlayingDate] = useState("Date");
-  const [textAreaValue, setTextAreaValue] = useState("[Bets, Entry, Prize, Rules]");
-  const [progs069, setProgs069] = useState("0");
-  const [progAdj, setProgAdj] = useState("0");
-  //trick the component into rerendering with tee choice changes
-  //eslint-disable-next-line
-  const [teeChoiceChangedId, setTeeChoiceChangedId] = useState(0);
-  //eslint-disable-next-line
-  const [overrideCHChoiceChangedId, setOverrideCHChoiceChangedId] = useState(0);
-
-  useEffect(() => {
-    setEachTeamsHcpAndProgs();
-    return () => {
-    setEachTeamsHcpAndProgs();
-    }
-  }, )
-
-  
-  let playersArray = createLineupTablePlayersArray(course, game, games, teesSelected, ratings, slopes, pars, teamTables, teeTimeCount, randomTeams);
-  //eslint-disable-next-line
-  const [players, setPlayers] = useState(playersArray);
-
-  
+  let 
+    teamMembers = [],
+    savedPlayers = [],
+    savedCourse, 
+    savedGame, 
+    savedLinkTime, 
+    savedPlayingDate, 
+    savedProgs069, 
+    savedProgAdj,
+    savedTeamTables = [], 
+    savedTeeTimeCount, 
+    savedTextAreaValue,
+    savedTeesSelected = [];
 
   function setEachTeamsHcpAndProgs(){
-    for (let i = 0; i < teeTimeCount; i++){
+    for (let i = 0; i < savedTeeTimeCount; i++){
       let teamName = "team" + i;
       setTeamHcpAndProgs(teamName);
     }
   }
 
   function setTeamHcpAndProgs(teamName){    
-    let teamMembers = teamTables[teamName];
+    let teamMembers = savedTeamTables[teamName];
     let aTeamHcp = 0;
     let aTeamProgs = 0;
     try {
       
     let playerCount = teamMembers.length;
     teamMembers.forEach(computeHcpAndProgs);
-    switch (Number(progAdj)) {
+    switch (Number(savedProgAdj)) {
         case 0:
-          switch (Number(progs069)) {
+          switch (Number(savedProgs069)) {
             case 6:
               aTeamProgs = aTeamProgs/3
               break;
@@ -103,7 +66,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         default:
           break;
       case 3:
-        switch (Number(progs069)) {
+        switch (Number(savedProgs069)) {
           case 6:
             if (playerCount === 3) {
               aTeamProgs = aTeamProgs/3 + 1
@@ -124,7 +87,7 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         }
         break;
         case 4:
-          switch (Number(progs069)) {
+          switch (Number(savedProgs069)) {
             case 6:
               if (playerCount === 4) {
                 aTeamProgs = aTeamProgs/3 - 1
@@ -156,20 +119,12 @@ export default function LineupTableAll({ratings, slopes, pars}) {
 
     function computeHcpAndProgs(item){
       let teeChoice = item.teeChoice;
-      let teesSelectedArray = teesSelected.map(a => a.value)
-      let teeNo = teesSelectedArray.indexOf(teeChoice);
+      let teeNo = savedTeesSelected.indexOf(teeChoice);
       aTeamHcp = aTeamHcp + Number(item.courseHandicaps[teeNo]);
       aTeamProgs = aTeamProgs + (36 - Number(item.courseHandicaps[teeNo]));
     }
   }
   
-
-  function setTeeChoice(aTeamNumber, anId, aTeeChoice){
-    let teamName = "team" + aTeamNumber;
-    const playerIndex = teamTables[teamName].findIndex(player => player.id === Number(anId));
-    teamTables[teamName][playerIndex].teeChoice = aTeeChoice;
-    //set('savedTeamTables', teamTables);
-  }
 
   function setManualCHCourseHandicaps(teamMembers){
     //iterate through teamMembers
@@ -178,9 +133,8 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         let aTeeChoice = teamMembers[i].teeChoice;
         let aManualCH = teamMembers[i].manualCH;
         if (aManualCH !== "Auto") {
-          let teesSelectedArray = teesSelected.map(a => a.value);
-          let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice);
-          for (let j = 0; j < teesSelectedArray.length; j++){
+          let aChosenTeeIndex = savedTeesSelected.indexOf(aTeeChoice);
+          for (let j = 0; j < savedTeesSelected.length; j++){
             teamMembers[i].courseHandicaps[j]="*"
           }
           teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH;
@@ -193,25 +147,12 @@ export default function LineupTableAll({ratings, slopes, pars}) {
     }
   }
 
-  function setTeeChoice(aTeamNumber, anId, aTeeChoice){
-    let teamName = "team" + aTeamNumber;
-    const playerIndex = teamTables[teamName].findIndex(player => player.id === Number(anId));
-    teamTables[teamName][playerIndex].teeChoice = aTeeChoice;
-    //set('savedTeamTables', teamTables);
-  }
-  let manualCHList =[];
-  manualCHList.push("*");
-  manualCHList.push("Auto");
-  for (let i = -10; i < 61; i++) manualCHList.push(i);
-  const manualCHOptionItems = manualCHList.map((manualCH) =>
-    <option key ={uuidv4()} value={manualCH}>{manualCH}</option>);
 
-  const playerNameList = getPlayersNotInTeeTime(players, teamTables);
   let TeamTables = [];
   function generateTeamTables (){
-    for (var i = 0; i < teeTimeCount; i++){
+    for (var i = 0; i < savedTeeTimeCount; i++){
       let teamName = "team" + i;
-      teamMembers = teamTables[teamName];
+      teamMembers = savedTeamTables[teamName];
       setManualCHCourseHandicaps(teamMembers);
       setEachTeamsHcpAndProgs();
       //teamHcpAndProgs = get('savedTeamHcpAndProgs');
@@ -222,103 +163,103 @@ export default function LineupTableAll({ratings, slopes, pars}) {
         key={uuidv4()}
         teamNumber={i}
         teamName={teamName}
-        teamTables={teamTables}
+        teamTables={savedTeamTables}
         teamMembers={teamMembers}
-        playerNameList={playerNameList}
-        progs069={progs069}
+        progs069={savedProgs069}
         teamHcp={teamHcp}
         teamProgs={teamProgs}
+        teesSelected={savedTeesSelected}
       />
       )
     }
     return TeamTables;
   }
-  function loadLineupFromFirebase({
+
+  function loadLineupFromFirebase(props) 
+/*   {
     players,
-    course, 
-    game, 
+    course,
+    game,
     linkTime, 
     playingDate, 
     progs069, 
     progAdj,
     teamTables, 
     teeTimeCount, 
-    textAreaValue
-    }){
-        setPlayers(players);
-        setCourse(course);
-        setGame(game);
-        setLinkTime(linkTime);
-        setPlayingDate(playingDate);
-        setProgs069(progs069);
-        setProgAdj(progAdj)
-        if (teamTables) {
-          setTeamTables(teamTables)
-          } else {
-          setTeamTables(teamTablesObj)
-        };
-        setTeeTimeCount(teeTimeCount);
-        setTextAreaValue(textAreaValue);
-    }
-    
-  
-  //const [Lineups] = useList(LineupDataService.getAll());
+    textAreaValue,
+    teesSelected
+    }) */
+    {
+      savedPlayers = props.players;
+      savedCourse = props.course;
+      savedGame = props.game; 
+      savedLinkTime = props.linkTime; 
+      savedPlayingDate = props.playingDate; 
+      savedProgs069 = props.progs069; 
+      savedProgAdj = props.progAdj;
+      savedTeamTables = props.teamTables; 
+      savedTeeTimeCount = props.teeTimeCount; 
+      savedTextAreaValue = props.textAreaValue;
+      savedTeesSelected = props.teesSelected;
+      const dataMode = 'ghin';
+      let updatedPlayers  = fetchGamesGHIN(dataMode, savedPlayers);
+      savedPlayers = updatedPlayers;
+      setEachTeamsHcpAndProgs();
+      
+ 
  
   return (
-  <>
-  <div id='lineup-page' className='center'>
-  <table id="lineup-table">
-  <div id='lineup-table-div'>
-    <thead className='lineup-table-head'>
-      <tr>
-        <td>
-          {"Lineup for " + game + ", " + playingDate + " at " + linkTime + " at " + course.toUpperCase()}
-        </td>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>
-        {generateTeamTables()}
-        </td>
-      </tr>
-    </tbody>
-    <tfoot>
-      <tr>
-        <td className='center text-area-cell'>
-          <textarea 
-          id='lineup-textarea'
-          rows="8" cols="39"
-          value={textAreaValue}
-          onFocus={event => event.target.value = textAreaValue}
-          >
-          </textarea>
-        </td>
-      </tr>
-    </tfoot>
-  </div>
-  </table>
-    <br></br><br></br>
-    <ButtonDownloadScreenShot game={game} course={course} element='lineup-table-div' format="PNG" page="Lineup" />
+    <><br></br><br></br>
+    <div id='lineup-page' className='center'>
+    <table id="lineup-table">
+    <div id='lineup-table-div'>
+      <thead className='lineup-table-head'>
+        <tr>
+          <td>
+            {"Lineup for " + savedGame + ", " + savedPlayingDate + " at " + savedLinkTime + " at " + savedCourse.toUpperCase()}
+          </td>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>
+          {generateTeamTables()}
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td className='center text-area-cell'>
+            <textarea 
+            id='lineup-textarea'
+            rows="8" cols="39"
+            value={savedTextAreaValue}
+            onFocus={event => event.target.value = savedTextAreaValue}
+            >
+            </textarea>
+          </td>
+        </tr>
+      </tfoot>
     </div>
-  </>
-  )
-}
+    </table>
+      <br></br><br></br>
+      <ButtonDownloadScreenShot game={savedGame} course={savedCourse} element='lineup-table-div' format="PNG" page="Lineup" />
+      </div>
+    </>
+    )
+    }
+    
+   /* use react-firebase-hooks */
+   //eslint-disable-next-line
+  const [Lineups, loading, error] = useList(LineupDataService.getAll());
+  let savedLineup;
+  if (!loading && !error){
+    let mondayLineup = Lineups[0];
+    savedLineup = mondayLineup.val();
+  loadLineupFromFirebase(savedLineup.lineup)
+  }
 
-export const getPlayersNotInTeeTime = (playersList, teamTables) => {
-  const{ team0 = [], team1 = [], team2 = [], team3 = [], team4 = [], team5 = [], team6 = [], team7 = [], team8 = [], team9 = []} = teamTables;
-  return playersList.filter(player => {
-      return !(team0.find(p => p.id === player.id) ||
-      team1.find(p => p.id === player.id) ||
-      team2.find(p => p.id === player.id) ||
-      team3.find(p => p.id === player.id) ||
-      team4.find(p => p.id === player.id) ||
-      team5.find(p => p.id === player.id) ||
-      team6.find(p => p.id === player.id) ||
-      team7.find(p => p.id === player.id) ||
-      team8.find(p => p.id === player.id) ||
-      team9.find(p => p.id === player.id));
-  });
+  return null;
 }
 
 

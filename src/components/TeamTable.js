@@ -1,8 +1,6 @@
 import React from 'react';
 import '../styles/App.css';
 import LineupTableHeader from './LineupTableHeader';
-import {useRecoilValue} from 'recoil';
-import * as state from '../state';
 import { v4 as uuidv4 } from 'uuid';
 import TeeChoiceDropDown from './TeeChoiceDropDown';
 
@@ -10,19 +8,13 @@ const TeamTable = ({
     teamNumber,
     teamName,
     teamMembers,
-    handleAddTeamMember,
-    handleDeleteTeamMember,
     teamTables,
-    playerNameList,
     progs069, 
     teamHcp,
     teamProgs,
-    handleTeeChoiceChange,
-    handleOverrideCHChange,
-    manualCHOptionItems
+    teesSelected
 }) => {
   
-  const teesSelected = useRecoilValue(state.teesSelectedState);
   let rows = teamMembers;
   let rowsTD = [];
   let teeCount = teesSelected.length;
@@ -39,7 +31,6 @@ const TeamTable = ({
         <tr key={rows[i].id}>
           <td 
             className="lineup-left-row-cell"
-            onClick={handleDeleteTeamMember(teamName, teamMembers[i].id)}
             >
               {rows[i].playerName}
             </td>
@@ -59,30 +50,17 @@ const TeamTable = ({
       )
     }
   
-  let aChosenTeeIndex = rows[i].courseHandicaps.indexOf(rows[i].teeChoice);
-  let manualCH = rows[i].courseHandicaps[aChosenTeeIndex];
-  
     tds.push(<TeeChoiceDropDown
       key={uuidv4()}
-      handleTeeChoiceChange={handleTeeChoiceChange}
       teeChoiceOptionItems={teeChoiceOptionItems}
       baseTee={rows[i].teeChoice}
       playerId={rows[i].id}
       teamNumber={teamNumber}
       />)
-      tds.push(<OverrideCHDropDown
-        key={uuidv4()}
-        manualCH={manualCH}
-        handleOverrideCHChange={handleOverrideCHChange}
-        manualCHOptionItems={manualCHOptionItems}
-        playerId={rows[i].id}
-        teamNumber={teamNumber}
-      />)
     return tds;
   }
-  let teesSelectedArray = teesSelected.map(a => a.value);
-  //let baseTee = teesSelectedArray[0];
-  let teeChoiceOptionItems = teesSelectedArray.map((tee) =>
+  
+  let teeChoiceOptionItems = teesSelected.map((tee) =>
       <option key={uuidv4()} value={tee}>{tee}</option>);
 
 
@@ -90,13 +68,8 @@ const TeamTable = ({
   return (
         <table className='team-table'>
           <thead>
-              <LineupTableHeader 
-                teamNumber={teamNumber}
-                teamName={teamName}
-                teamTables={teamTables}
-                playerNameList={playerNameList}
-                handleAddTeamMember={handleAddTeamMember}
-              />
+              <LineupTableHeader
+              teesSelected={teesSelected} />
           </thead>
           <tbody>
               {generateRows()}
