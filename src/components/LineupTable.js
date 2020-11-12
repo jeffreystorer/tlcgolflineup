@@ -103,7 +103,7 @@ export default function LineupTable({lineup}){
 
     function computeHcpAndProgs(item){
       let teeChoice = item.teeChoice;
-      let teesSelectedArray = getTeesSelectedArray(lineup);
+      let teesSelectedArray = getTeesSelectedArray(lineup.teesSelected);
       let teeNo = teesSelectedArray.indexOf(teeChoice);
       aTeamHcp = aTeamHcp + Number(item.courseHandicaps[teeNo]);
       aTeamProgs = aTeamProgs + (36 - Number(item.courseHandicaps[teeNo]));
@@ -122,7 +122,6 @@ export default function LineupTable({lineup}){
       <TeamTable 
         key={uuidv4()}
         teamNumber={i}
-        teamName={teamName}
         teamTables={lineup.teamTables}
         teamMembers={teamMembers}
         progs069={lineup.progs069}
@@ -148,11 +147,12 @@ export default function LineupTable({lineup}){
             lineup.game + 
             ", " + 
             lineup.playingDate + 
-            " at " + 
-            lineup.linkTime + 
-            " at " + 
+            " at " +
             lineup.course.toUpperCase()}
           </td>
+        </tr>
+        <tr>
+          <td></td>
         </tr>
       </thead>
       <tbody>

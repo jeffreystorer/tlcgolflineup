@@ -1,11 +1,10 @@
 import React from 'react';
 import '../styles/App.css';
-import LineupTableHeader from './LineupTableHeader';
+import TeamTableHeader from './TeamTableHeader';
 import { v4 as uuidv4 } from 'uuid';
 
 const TeamTable = ({
     teamNumber,
-    teamName,
     teamMembers,
     teamTables,
     progs069, 
@@ -13,7 +12,6 @@ const TeamTable = ({
     teamProgs,
     teesSelected
 }) => {
-  
   let rows = teamMembers;
   let rowsTD = [];
   let teeCount = teesSelected.length;
@@ -57,8 +55,10 @@ const TeamTable = ({
   return (
         <table className='team-table'>
           <thead>
-              <LineupTableHeader
-              teesSelected={teesSelected} />
+              <TeamTableHeader
+              teesSelected={teesSelected}
+              teamTables={teamTables}
+              teamNumber={teamNumber} />
           </thead>
           <tbody>
               {generateRows()}

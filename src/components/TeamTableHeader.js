@@ -1,11 +1,9 @@
 import React from 'react';
-import createLineupTableHeaderRow from '../functions/createLineupTableHeaderRow';
+import createLineupTableHeaderRow from '../functions/createTeamTableHeaderRow';
 import { v4 as uuidv4 } from 'uuid';
  
 
-const LineupTableHeader = (teesSelected) => {
-  console.log("teesSelected");
-  console.table(teesSelected);
+const TeamTableHeader = ({teesSelected, teamTables, teamNumber}) => {
   let cols = createLineupTableHeaderRow(teesSelected);
   const getHeader = () => {
     cols.shift();
@@ -17,11 +15,19 @@ const LineupTableHeader = (teesSelected) => {
       </th>
     )})
   }
+  let teeTime;
+  console.table(teamTables)
+  try {
+    teeTime = teamTables.times[teamNumber]
+  } catch (error) {
+    
+  }
 
     return (
         <>
           <tr>
           <th className="lineup-left-header-cell">
+          {teeTime}
             </th>
             {getHeader()}
           </tr>
@@ -29,4 +35,4 @@ const LineupTableHeader = (teesSelected) => {
     );
   }
 
-  export default LineupTableHeader;
+  export default TeamTableHeader;

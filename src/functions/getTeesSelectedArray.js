@@ -1,6 +1,5 @@
   
 export default function getTeesSelectedArray(teesSelected) {
-  let teesSelectedArray = teesSelected.teesSelected.map(a => a.value);
-  console.table(teesSelectedArray)
+  let teesSelectedArray = teesSelected.map(a => a.value);
   return teesSelectedArray;
 }
