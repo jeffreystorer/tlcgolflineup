@@ -141,10 +141,9 @@ export default function LineupTable({lineup}){
     <table id="lineup-table">
     <div id='lineup-table-div'>
       <thead className='lineup-table-head'>
-        <tr>
-          <td>
-            {"Lineup for " + 
-            lineup.game + 
+        <tr className='lineup-table-head'>
+          <td className='lineup-table-head'>
+            {lineup.game + 
             ", " + 
             lineup.playingDate + 
             " at " +
