@@ -1,10 +1,12 @@
 import React from 'react';
-import createGamesAndLineupTableHeaderRow from '../functions/createGamesAndLineupTableHeaderRow';
+import createLineupTableHeaderRow from '../functions/createLineupTableHeaderRow';
 import { v4 as uuidv4 } from 'uuid';
  
 
 const LineupTableHeader = (teesSelected) => {
-  let cols = createGamesAndLineupTableHeaderRow(teesSelected);
+  console.log("teesSelected");
+  console.table(teesSelected);
+  let cols = createLineupTableHeaderRow(teesSelected);
   const getHeader = () => {
     cols.shift();
     var keys = cols;

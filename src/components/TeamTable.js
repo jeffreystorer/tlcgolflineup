@@ -2,7 +2,6 @@ import React from 'react';
 import '../styles/App.css';
 import LineupTableHeader from './LineupTableHeader';
 import { v4 as uuidv4 } from 'uuid';
-import TeeChoiceDropDown from './TeeChoiceDropDown';
 
 const TeamTable = ({
     teamNumber,
@@ -50,20 +49,10 @@ const TeamTable = ({
       )
     }
   
-    tds.push(<TeeChoiceDropDown
-      key={uuidv4()}
-      teeChoiceOptionItems={teeChoiceOptionItems}
-      baseTee={rows[i].teeChoice}
-      playerId={rows[i].id}
-      teamNumber={teamNumber}
-      />)
+    tds.push(
+      <td key={uuidv4()}>{rows[i].teeChoice}</td>)
     return tds;
   }
-  
-  let teeChoiceOptionItems = teesSelected.map((tee) =>
-      <option key={uuidv4()} value={tee}>{tee}</option>);
-
-
 
   return (
         <table className='team-table'>

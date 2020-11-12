@@ -1,15 +1,31 @@
 import React from 'react';
-import '../styles/App.css';
+import { useList} from "react-firebase-hooks/database";
+import LineupDataService from "../services/LineupService";
 import LineupTable from './LineupTable';
-import fetchCourseData from '../functions/fetchCourseData';
 
-export default function LineupPage() {  
-  const [ratings, slopes, pars] = fetchCourseData();
+export default function LineupPage() {
+  const [Lineups, loading, error] = useList(LineupDataService.getAll());
+  let lineup;
 
-  return (
-    <>
-      <LineupTable ratings={ratings} slopes={slopes} pars={pars}/>
-    </>
-  );
+  if (!loading && !error){
+    let mondayLineup = Lineups[0];
+    let savedLineup = mondayLineup.val();
+    lineup = savedLineup.lineup;
+  }
+  
+  if (!loading && !error){
+    return(
+      <>
+      <LineupTable lineup={lineup} />
+      </>
+    )
+  } else {
+    return null
+  }  
 }
+
+
+
+
+
 
