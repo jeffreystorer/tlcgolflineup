@@ -8,8 +8,8 @@ export default function LineupPage() {
   let lineup;
 
   if (!loading && !error){
-    let mondayLineup = Lineups[0];
-    let savedLineup = mondayLineup.val();
+    let aLineup = Lineups[0];
+    let savedLineup = aLineup.val();
     lineup = savedLineup.lineup;
   }
   
