@@ -8,7 +8,7 @@ return(
     <div
       className='header'
     >
-      TLC Monday Golf
+      TLC Golf Lineup
     </div>
   </>
 )}

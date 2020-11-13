@@ -3,7 +3,7 @@
     "rules": "database.rules.json"
   },
   "hosting": {
-    "site":"tlcmondaygolf",
+    "site":"tlcgolflineup",
     "public": "build",
     "ignore": [
       "firebase.json",
