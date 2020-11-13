@@ -2,12 +2,12 @@
 import firebase from "../firebase";
 
 const getAll = () => {
-  const db = firebase.ref("/mondaylineup");
+  const db = firebase.ref("/lineup");
   return db;
 };
 
 const getLineup = (key) => {
-  const db = firebase.ref("/mondaylineup");
+  const db = firebase.ref("/lineup");
   return db.child(key);
 };
 
