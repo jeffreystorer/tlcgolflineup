@@ -4,12 +4,21 @@ import { v4 as uuidv4 } from 'uuid';
 import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
 import getTeesSelectedArray from '../functions/getTeesSelectedArray';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
+import fetchGamesGHIN from '../functions/fetchGamesGHIN';
+import {set} from '../functions/localStorage';
 
-export default function LineupTable({lineup}){
+export default function LineupTable({lineup}){  
+  set('players', lineup.allPlayers);
+  set('teesSelected', lineup.teesSelected)
+  const dataMode = 'ghin';  
+  fetchGamesGHIN(dataMode, lineup.allPlayers);
+  console.log("before")
+  console.table(lineup.teamTables)
+  let updatedTeamTables = createLineupTablePlayersArray(lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, lineup.teamTables, lineup.teeTimeCount);
   //eslint-disable-next-line
-  const [teamTables, setTeamTables] = useState(lineup.teamTables)
-  createLineupTablePlayersArray(lineup.allPlayers, lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, teamTables, lineup.teeTimeCount);
- 
+  const [teamTables, setTeamTables] = useState(updatedTeamTables);
+  console.log('after');
+  console.table(updatedTeamTables)
   let teamHcpAndProgs =
   {
     team0:[0,0],

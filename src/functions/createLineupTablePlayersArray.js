@@ -1,9 +1,9 @@
 import {tees, courses} from '../data';
 import setRatingSlopePar from './setRatingSlopePar';
+import {get} from './localStorage';
 
 
-export default function createLineupTablePlayersArrray (
-  allPlayers, 
+export default function createLineupTablePlayersArrray ( 
   course, 
   game, 
   games, 
@@ -15,7 +15,7 @@ export default function createLineupTablePlayersArrray (
   teeTimeCount) {
 
   //declare some variables
-  let players = allPlayers;
+  let players = get('players');
   var playersArray = [];
   let strHcpIndex;
   let hcpIndex;
@@ -113,4 +113,5 @@ export default function createLineupTablePlayersArrray (
   }
   players.forEach(addRow);
   updateTeamTables();
+  return teamTables;
 }
