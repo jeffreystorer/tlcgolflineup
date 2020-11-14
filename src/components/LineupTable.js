@@ -8,7 +8,7 @@ import createLineupTablePlayersArray from '../functions/createLineupTablePlayers
 export default function LineupTable({lineup}){
   //eslint-disable-next-line
   const [teamTables, setTeamTables] = useState(lineup.teamTables)
-  createLineupTablePlayersArray(lineup.players, lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, teamTables, lineup.teeTimeCount);
+  createLineupTablePlayersArray(lineup.allPlayers, lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, teamTables, lineup.teeTimeCount);
  
   let teamHcpAndProgs =
   {

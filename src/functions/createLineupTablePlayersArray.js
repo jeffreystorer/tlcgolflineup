@@ -3,7 +3,7 @@ import setRatingSlopePar from './setRatingSlopePar';
 
 
 export default function createLineupTablePlayersArrray (
-  players, 
+  allPlayers, 
   course, 
   game, 
   games, 
@@ -15,6 +15,7 @@ export default function createLineupTablePlayersArrray (
   teeTimeCount) {
 
   //declare some variables
+  let players = allPlayers;
   var playersArray = [];
   let strHcpIndex;
   let hcpIndex;
