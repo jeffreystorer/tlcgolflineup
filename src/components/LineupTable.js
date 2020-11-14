@@ -1,10 +1,15 @@
-import React from 'react';
+import React, {useState} from 'react';
 import TeamTable from './TeamTable';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
 import getTeesSelectedArray from '../functions/getTeesSelectedArray';
+import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
 
 export default function LineupTable({lineup}){
+  //eslint-disable-next-line
+  const [teamTables, setTeamTables] = useState(lineup.teamTables)
+  createLineupTablePlayersArray(lineup.players, lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, teamTables, lineup.teeTimeCount);
+ 
   let teamHcpAndProgs =
   {
     team0:[0,0],
@@ -28,7 +33,7 @@ export default function LineupTable({lineup}){
   }
 
   function setTeamHcpAndProgs(teamName){
-    let teamMembers = lineup.teamTables[teamName];
+    let teamMembers = teamTables[teamName];
     let aTeamHcp = 0;
     let aTeamProgs = 0;
     try {      
@@ -114,7 +119,7 @@ export default function LineupTable({lineup}){
   function generateTeamTables (){
     for (var i = 0; i < lineup.teeTimeCount; i++){
       let teamName = "team" + i;
-      teamMembers = lineup.teamTables[teamName];
+      teamMembers = teamTables[teamName];
       setEachTeamsHcpAndProgs();
       let teamHcp = teamHcpAndProgs[teamName][0];
       let teamProgs = teamHcpAndProgs[teamName][1];
@@ -122,7 +127,7 @@ export default function LineupTable({lineup}){
       <TeamTable 
         key={uuidv4()}
         teamNumber={i}
-        teamTables={lineup.teamTables}
+        teamTables={teamTables}
         teamMembers={teamMembers}
         progs069={lineup.progs069}
         teamHcp={teamHcp}
