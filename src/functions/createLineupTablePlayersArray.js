@@ -1,5 +1,4 @@
 import {tees, courses} from '../data';
-import {get} from './localStorage';
 import setRatingSlopePar from './setRatingSlopePar';
 
 
