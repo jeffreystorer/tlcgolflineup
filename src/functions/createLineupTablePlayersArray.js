@@ -1,7 +1,5 @@
 import {tees, courses} from '../data';
 import setRatingSlopePar from './setRatingSlopePar';
-import {get} from './localStorage';
-
 
 export default function createLineupTablePlayersArrray ( 
   allPlayers,
