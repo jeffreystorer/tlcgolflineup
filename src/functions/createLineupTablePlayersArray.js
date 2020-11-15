@@ -4,6 +4,7 @@ import {get} from './localStorage';
 
 
 export default function createLineupTablePlayersArrray ( 
+  allPlayers,
   course, 
   game, 
   games, 
@@ -15,7 +16,7 @@ export default function createLineupTablePlayersArrray (
   teeTimeCount) {
 
   //declare some variables
-  let players = get('players');
+  let players = allPlayers;
   var playersArray = [];
   let strHcpIndex;
   let hcpIndex;

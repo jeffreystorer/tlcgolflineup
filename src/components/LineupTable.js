@@ -14,7 +14,7 @@ export default function LineupTable({lineup}){
   fetchGamesGHIN(dataMode, lineup.allPlayers);
   console.log("before")
   console.table(lineup.teamTables)
-  let updatedTeamTables = createLineupTablePlayersArray(lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, lineup.teamTables, lineup.teeTimeCount);
+  let updatedTeamTables = createLineupTablePlayersArray(lineup.allPlayers,lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, lineup.teamTables, lineup.teeTimeCount);
   //eslint-disable-next-line
   const [teamTables, setTeamTables] = useState(updatedTeamTables);
   console.log('after');
