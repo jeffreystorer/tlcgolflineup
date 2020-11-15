@@ -1,8 +1,9 @@
 import {tees, courses} from '../data';
+import {get} from './localStorage';
 import setRatingSlopePar from './setRatingSlopePar';
 
-export default function createLineupTablePlayersArrray ( 
-  allPlayers,
+
+export default function createLineupTablePlayersArrray (
   course, 
   game, 
   games, 
@@ -12,9 +13,9 @@ export default function createLineupTablePlayersArrray (
   pars, 
   teamTables,
   teeTimeCount) {
+  const players = get('players');
 
   //declare some variables
-  let players = allPlayers;
   var playersArray = [];
   let strHcpIndex;
   let hcpIndex;
@@ -91,26 +92,7 @@ export default function createLineupTablePlayersArrray (
     playersArray.push(newRow);
   }
 
-  function updateTeamTables(){
-    for (let i = 0; i < teeTimeCount; i++) {
-      let aTeamName = "team" + i;
-      try {
-      let aPlayerCount = teamTables[aTeamName].length;
-      for (let j = 0; j < aPlayerCount; j++){
-        let aTeamMemberId = teamTables[aTeamName][j].id;
-        let aPlayerObj = playersArray.find(obj => 
-          obj.id === aTeamMemberId
-        )
-        teamTables[aTeamName][j].playerName = aPlayerObj.playerName;
-        teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps;
-      }
-      } catch (error) {
-        console.log("error updating Team Tables");
-      }
 
-    }
-  }
   players.forEach(addRow);
-  updateTeamTables();
-  return teamTables;
+  return playersArray;
 }

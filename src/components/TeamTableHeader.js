@@ -16,7 +16,6 @@ const TeamTableHeader = ({teesSelected, teamTables, teamNumber}) => {
     )})
   }
   let teeTime;
-  console.table(teamTables)
   try {
     teeTime = teamTables.times[teamNumber]
   } catch (error) {

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import TeamTable from './TeamTable';
 import { v4 as uuidv4 } from 'uuid';
 import ButtonDownloadScreenShot from './ButtonDownloadScreenshot';
@@ -7,18 +7,17 @@ import createLineupTablePlayersArray from '../functions/createLineupTablePlayers
 import fetchGamesGHIN from '../functions/fetchGamesGHIN';
 import {set} from '../functions/localStorage';
 
-export default function LineupTable({lineup}){  
+export default function LineupTable({lineup}){
+  console.log("original");
+  console.table(lineup.teamTables);
   set('players', lineup.allPlayers);
   set('teesSelected', lineup.teesSelected)
   const dataMode = 'ghin';  
-  fetchGamesGHIN(dataMode, lineup.allPlayers);
-  console.log("before")
-  console.table(lineup.teamTables)
-  let updatedTeamTables = createLineupTablePlayersArray(lineup.allPlayers,lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, lineup.teamTables, lineup.teeTimeCount);
-  //eslint-disable-next-line
-  const [teamTables, setTeamTables] = useState(updatedTeamTables);
-  console.log('after');
-  console.table(updatedTeamTables)
+  fetchGamesGHIN(dataMode);
+  let playersArray = createLineupTablePlayersArray(lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, lineup.teamTables, lineup.teeTimeCount);
+  let teamTables = updateTeamTables();
+  console.log('updated');
+  console.table(teamTables); 
   let teamHcpAndProgs =
   {
     team0:[0,0],
@@ -33,6 +32,28 @@ export default function LineupTable({lineup}){
     team9:[0,0],
   }
   let teamMembers = [];
+
+  function updateTeamTables(){
+    let teamTables = lineup.teamTables;
+    for (let i = 0; i < lineup.teeTimeCount; i++) {
+      let aTeamName = "team" + i;
+      try {
+      let aPlayerCount = teamTables[aTeamName].length;
+      for (let j = 0; j < aPlayerCount; j++){
+        let aTeamMemberId = teamTables[aTeamName][j].id;
+        let aPlayerObj = playersArray.find(obj => 
+          obj.id === aTeamMemberId
+        )
+        teamTables[aTeamName][j].playerName = aPlayerObj.playerName;
+        teamTables[aTeamName][j].courseHandicaps = aPlayerObj.courseHandicaps;
+      }
+      } catch (error) {
+        console.log("error updating Team Tables");
+      }
+
+    }
+    return teamTables
+  }
 
   function setEachTeamsHcpAndProgs(){
     for (let i = 0; i < lineup.teeTimeCount; i++){
