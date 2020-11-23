@@ -8,16 +8,11 @@ import fetchGamesGHIN from '../functions/fetchGamesGHIN';
 import {set} from '../functions/localStorage';
 
 export default function LineupTable({lineup}){
-  console.log("original");
-  console.table(lineup.teamTables);
-  set('players', lineup.allPlayers);
   set('teesSelected', lineup.teesSelected)
   const dataMode = 'ghin';  
-  fetchGamesGHIN(dataMode);
+  fetchGamesGHIN(dataMode, lineup.allPlayers);
   let playersArray = createLineupTablePlayersArray(lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, lineup.teamTables, lineup.teeTimeCount);
   let teamTables = updateTeamTables();
-  console.log('updated');
-  console.table(teamTables); 
   let teamHcpAndProgs =
   {
     team0:[0,0],

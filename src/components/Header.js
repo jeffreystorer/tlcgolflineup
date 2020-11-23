@@ -8,7 +8,10 @@ return(
     <div
       className='header'
     >
-      TLC Golf Lineup
+      TLC Golf
+    </div>
+    <div className='center'>
+    <h3>Lineup</h3>
     </div>
   </>
 )}
