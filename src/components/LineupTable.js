@@ -10,7 +10,7 @@ import {set} from '../functions/localStorage';
 export default function LineupTable({lineup}){
   set('teesSelected', lineup.teesSelected)
   const dataMode = 'ghin';  
-  fetchGamesGHIN(dataMode, lineup.allPlayers);
+  fetchGamesGHIN(dataMode, lineup.players);
   let playersArray = createLineupTablePlayersArray(lineup.course, lineup.game, lineup.games, lineup.teesSelected, lineup.ratings, lineup.slopes, lineup.pars, lineup.teamTables, lineup.teeTimeCount);
   let teamTables = updateTeamTables();
   let teamHcpAndProgs =
