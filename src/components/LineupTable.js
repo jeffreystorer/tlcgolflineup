@@ -6,6 +6,7 @@ import getTeesSelectedArray from '../functions/getTeesSelectedArray';
 import createLineupTablePlayersArray from '../functions/createLineupTablePlayersArray';
 import fetchGamesGHIN from '../functions/fetchGamesGHIN';
 import {set} from '../functions/localStorage';
+import useVisibilityChange from 'use-visibility-change';
 
 export default function LineupTable({lineup}){
   set('teesSelected', lineup.teesSelected)
@@ -163,8 +164,13 @@ export default function LineupTable({lineup}){
     }
     return TeamTables;
   }
+    
+  const onShow = () => {
+    window.location.reload();
+  }
+  useVisibilityChange({onShow});
   
-   return (
+  return (
     <>
     <br></br><br></br>
     <div id='lineup-page' className='center'>
