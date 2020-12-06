@@ -9,7 +9,6 @@ import { set } from "../functions/localStorage"
 
 export default function LineupTable({ lineup }) {
   const [refreshed, setRefreshed] = useState(false)
-  console.log(refreshed)
   set("teesSelected", lineup.teesSelected)
   const dataMode = "ghin"
   fetchGamesGHIN(dataMode, lineup.allPlayers)
