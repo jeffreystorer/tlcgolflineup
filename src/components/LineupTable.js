@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import TeamTable from "./TeamTable"
 import { v4 as uuidv4 } from "uuid"
 import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
@@ -8,9 +8,16 @@ import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 import { set } from "../functions/localStorage"
 
 export default function LineupTable({ lineup }) {
+  const [refreshed, setRefreshed] = useState(false)
+  console.log(refreshed)
   set("teesSelected", lineup.teesSelected)
   const dataMode = "ghin"
   fetchGamesGHIN(dataMode, lineup.allPlayers)
+
+  useEffect(() => {
+    if (!refreshed) setRefreshed(true)
+  }, [refreshed])
+
   let playersArray = createLineupTablePlayersArray(
     lineup.course,
     lineup.game,
