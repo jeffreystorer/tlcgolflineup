@@ -181,12 +181,12 @@ export default function LineupTable({ lineup }) {
     <>
       <br></br>
       <br></br>
-      <div id="lineup-page" className="center">
-        <table id="lineup-table">
-          <div id="lineup-table-div">
-            <thead className="lineup-table-head">
-              <tr className="lineup-table-head">
-                <td className="lineup-table-head">
+      <div id="lineup-page" className="center background-white">
+        <table id="lineup-table" className="background-white">
+          <div id="lineup-table-div" className="background-white">
+            <thead className="lineup-table-head background-white">
+              <tr className="lineup-table-head background-white">
+                <td className="lineup-table-head background-white">
                   {lineup.game +
                     ", " +
                     lineup.playingDate +
@@ -200,12 +200,12 @@ export default function LineupTable({ lineup }) {
             </thead>
             <tbody>
               <tr>
-                <td>{generateTeamTables()}</td>
+                <td className="background-white">{generateTeamTables()}</td>
               </tr>
             </tbody>
             <tfoot>
               <tr>
-                <td className="center text-area-cell">
+                <td className="center text-area-cell background-white">
                   <textarea
                     id="lineup-textarea"
                     // @ts-ignore
@@ -224,7 +224,7 @@ export default function LineupTable({ lineup }) {
           game={lineup.game}
           course={lineup.course.toUpperCase()}
           element="lineup-table-div"
-          format="PNG"
+          format="JPEG"
           page="Lineup"
         />
       </div>

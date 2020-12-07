@@ -2,7 +2,8 @@
   text-align: center;
 }
 
-.right, .right-selector {
+.right,
+.right-selector {
   float: right;
 }
 
@@ -11,7 +12,8 @@
   margin-right: 10px;
 }
 
-.left, .left-selector {
+.left,
+.left-selector {
   float: left;
 }
 
@@ -21,40 +23,38 @@
 }
 
 .left-selector {
-  margin-left:10px;
+  margin-left: 10px;
   margin-right: auto;
 }
 
-.lone-selector{
+.lone-selector {
   margin-left: 10px;
   margin-right: 10px;
 }
 
-
-.center{
+.center {
   text-align: center;
 }
 
-.text-align-left{
+.text-align-left {
   text-align: left;
 }
 
-.center-bold{
+.center-bold {
   text-align: center;
   font-family: sans-serif;
   font-weight: bold;
-
 }
 
-.hidden{
-  display: none
+.hidden {
+  display: none;
 }
-.change-golfer{
+.change-golfer {
   border-style: none none solid none;
   border-color: #ffffff;
   color: #fff;
   font-size: 24px;
-  background-color: #00365F;
+  background-color: #00365f;
   text-align: center;
 }
 
@@ -69,41 +69,42 @@ input:hover :not(#next) {
   background-color: #eee;
 }
 
-input:focus:not(#next){
+input:focus:not(#next) {
   background-color: #ccf;
 }
 
-input:not(:focus) :not(#next){
+input:not(:focus) :not(#next) {
   text-align: center;
 }
 
 /* Table Formatting */
-caption{
+caption {
   font-weight: bold;
 }
 /* Individual */
 
-th.individual-left-header-cell{
+th.individual-left-header-cell {
   background-color: #ffffff;
   color: #000000;
-  width: 20%;}
+  width: 20%;
+}
 
-th.individual-other-header-cell{
+th.individual-other-header-cell {
   text-align: center;
   background-color: #3378ac;
   color: #ffffff;
   width: fit-content;
 }
-  
-td.individual-left-row-cell{
+
+td.individual-left-row-cell {
   text-align: center;
   background-color: #3378ac;
   color: #ffffff;
   font-weight: bold;
   width: fit-content;
 }
-  
-td.individual-other-row-cell{
+
+td.individual-other-row-cell {
   text-align: center;
   background-color: #ffffff;
   color: #000000;
@@ -112,27 +113,27 @@ td.individual-other-row-cell{
 
 /* Games */
 
-#games-table{
+#games-table {
   width: fit-content;
 }
 
-th.game-header-cell{
+th.game-header-cell {
   text-align: center;
   background-color: #3378ac;
   color: #ffffff;
   width: fit-content;
 }
 
-td.game-left-row-cell{
+td.game-left-row-cell {
   text-align: left;
   background-color: #ffffff;
   color: #000000;
-  }
+}
 
-td.game-other-row-cell{
-text-align: center;
-background-color: #ffffff;
-color: #000000;
+td.game-other-row-cell {
+  text-align: center;
+  background-color: #ffffff;
+  color: #000000;
 }
 
 /* Lineup */
@@ -143,11 +144,11 @@ color: #000000;
   width: fit-content;
 } */
 
-#lineup-table{
+#lineup-table {
   width: fit-content;
 }
 
-#help-table{
+#help-table {
   width: 100%;
 }
 
@@ -155,13 +156,14 @@ table.team-table {
   width: 100%;
 }
 
-th.lineup-left-header-cell, td.lineup-left-row-cell{    
+th.lineup-left-header-cell,
+td.lineup-left-row-cell {
   text-align: left;
   background-color: #ffffff;
   color: #000000;
 }
 
-th.lineup-other-header-cell{
+th.lineup-other-header-cell {
   text-align: center;
   background-color: #ffffff;
   color: #000000;
@@ -169,7 +171,7 @@ th.lineup-other-header-cell{
   width: fit-content;
 }
 
-td.lineup-other-row-call{
+td.lineup-other-row-call {
   text-align: center;
   background-color: #ffffff;
   color: #000000;
@@ -186,35 +188,34 @@ td.help-topic {
   width: 20%;
 }
 
-
-table, .golfer-center{
+table,
+.golfer-center {
   margin-left: auto;
   margin-right: auto;
   font: 16px sans-serif;
   /*font-weight: bold;*/
-  width: 90%;  
+  width: 90%;
 }
 
-.table-tip-td{
+.table-tip-td {
   text-align: left;
 }
 
-.lineup-left-header-cell{
+.lineup-left-header-cell {
   width: 200px;
 }
-  td.team-card-col-player, div.team-card-col-players, span.team-card-col-players{
-    text-align: left,
-  }
+td.team-card-col-player,
+div.team-card-col-players,
+span.team-card-col-players {
+  text-align: left;
+}
 
-
-
-.select-dropdown-container{
+.select-dropdown-container {
   margin-left: auto;
   margin-right: auto;
   font: 16px sans-serif;
   font-weight: bold;
   width: fit-content;
-
 }
 
 .select-manual-CH {
@@ -222,34 +223,32 @@ table, .golfer-center{
   -moz-appearance: none;
   appearance: none;
   text-indent: 1px;
-  text-overflow: '';
+  text-overflow: "";
   border: none;
-
 }
-.display-user-game-table{
+.display-user-game-table {
   margin-left: auto;
   margin-right: auto;
   width: 90%;
 }
 
-.tee{
+.tee {
   border-style: none none none none;
   color: #ffffff;
   background-color: #3378ac;
 }
 
-.dropdown-center{
+.dropdown-center {
   margin-left: auto;
   margin-right: auto;
   width: 60%;
 }
 
-.link-center{  
+.link-center {
   margin-left: auto;
   margin-right: auto;
   text-align: center;
 }
-
 
 nav {
   width: fit-content;
@@ -257,33 +256,31 @@ nav {
   margin-right: auto;
   float: none;
   text-align: center;
-    list-style: none;
-    background-color: #f2f2f2;
-    border-bottom: 0px solid #ccc; 
+  list-style: none;
+  background-color: #f2f2f2;
+  border-bottom: 0px solid #ccc;
   border-top: 0px solid #ccc;
   height: 23px;
 }
 
 .navitem {
   padding: 1px 15px;
-    text-decoration: none;
-    color:black;
+  text-decoration: none;
+  color: black;
   border-right: 1px solid #ccc;
   height: 23px;
-
 }
-
 
 .navitem-last {
   padding: 1px 15px;
-    text-decoration: none;
-    color:black;
+  text-decoration: none;
+  color: black;
   border-right: 1px solid #fff;
   height: 23px;
-
 }
-.navitem:hover, .navitem-last:hover{
-    color: #c00;
+.navitem:hover,
+.navitem-last:hover {
+  color: #c00;
   background-color: #fff;
 }
 
@@ -301,10 +298,10 @@ nav {
   height: 42px;
   color: #ffffff;
   font-size: 24px;
-  background-color: #00365F;
+  background-color: #00365f;
   text-align: center;
   z-index: 1;
-  box-shadow: 0 14px 28px rgba(0,0,0,0.25), 0 10px 10px rgba(0,0,0,0.28);
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.28);
 }
 
 .mybtn-primary {
@@ -313,13 +310,14 @@ nav {
   border-color: #3378ac;
 }
 
-button, #next{
-  background-color: #3378AC;
+button,
+#next {
+  background-color: #3378ac;
   padding: 1px 15px;
-    text-decoration: none;
-  height: 23px;  
+  text-decoration: none;
+  height: 23px;
   border-color: #3378ac;
-  border: 2px solid #3378AC;
+  border: 2px solid #3378ac;
   color: white;
   text-align: center;
   text-decoration: none;
@@ -330,7 +328,8 @@ button, #next{
   -webkit-appearance: none;
   border-radius: 0;
 }
-button:hover, #next:hover{
+button:hover,
+#next:hover {
   -webkit-appearance: none;
   border-radius: 0;
   color: #c00;
@@ -344,41 +343,39 @@ button:hover, #next:hover{
   vertical-align: middle;
   user-select: none;
   border: 1px solid transparent;
-  padding: .375rem .75rem;
+  padding: 0.375rem 0.75rem;
   font-size: 1rem;
   line-height: 1.5;
-  border-radius: .25rem;
-  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+  border-radius: 0.25rem;
+  transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
+    border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
-
-
-footer{
+footer {
   position: fixed;
   width: 100%;
   bottom: 0px;
   text-align: center;
 }
-  #playerName {     
+#playerName {
   border-color: #3378ac;
-  border-bottom: 1px solid #3378AC;
-  }
+  border-bottom: 1px solid #3378ac;
+}
 
-  .container h2 {
-    text-align: center;
-    margin: 25px auto;
-  }
-  
-  .list-lineups {
-    padding-left: 20px;
-    padding-right: 20px;
-    text-align: center;
-    width: fit-content;
-    margin: auto;
-    border: 1px solid black;
-  }
-  
-  
+.container h2 {
+  text-align: center;
+  margin: 25px auto;
+}
+
+.list-lineups {
+  padding-left: 20px;
+  padding-right: 20px;
+  text-align: center;
+  width: fit-content;
+  margin: auto;
+  border: 1px solid black;
+}
+
 /*   .list-lineup{
     padding: 5px;
     text-align: center;
@@ -388,8 +385,8 @@ footer{
 /*   ul li{
     border: 1px solid #3378AC;
   } */
-  
-li:hover{
+
+li:hover {
   color: #c00;
   background-color: #fff;
 }
@@ -417,11 +414,15 @@ tfoot {
   /*font-weight: bold;*/
 }
 
-textarea{
+textarea {
   font: 16px sans-serif;
   resize: both;
 }
 
-p{
+p {
   font: 16px sans-serif;
+}
+
+.background-white {
+  background-color: white;
 }
