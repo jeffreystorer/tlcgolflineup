@@ -5,11 +5,10 @@ import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
 import getTeesSelectedArray from "../functions/getTeesSelectedArray"
 import createLineupTablePlayersArray from "../functions/createLineupTablePlayersArray"
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
-import { set } from "../functions/localStorage"
 
 export default function LineupTable({ lineup }) {
   const [refreshed, setRefreshed] = useState(false)
-  set("teesSelected", lineup.teesSelected)
+  let teesSelected = lineup.teesSelected
   const dataMode = "ghin"
   fetchGamesGHIN(dataMode, lineup.allPlayers)
 
@@ -153,11 +152,33 @@ export default function LineupTable({ lineup }) {
     }
   }
 
+  function setManualCHCourseHandicaps(teamMembers) {
+    //iterate through teamMembers
+    try {
+      for (let i = 0; i < teamMembers.length; i++) {
+        let aTeeChoice = teamMembers[i].teeChoice
+        let aManualCH = teamMembers[i].manualCH
+        if (aManualCH !== "Auto") {
+          let teesSelectedArray = teesSelected.map((a) => a.value)
+          let aChosenTeeIndex = teesSelectedArray.indexOf(aTeeChoice)
+          for (let j = 0; j < teesSelectedArray.length; j++) {
+            teamMembers[i].courseHandicaps[j] = "*"
+          }
+          teamMembers[i].courseHandicaps[aChosenTeeIndex] = aManualCH
+          teamMembers[i].playerName = teamMembers[i].playerName + "*"
+        }
+      }
+    } catch (error) {
+      console.log("error setting ManualCourseHandicaps")
+    }
+  }
+
   let TeamTables = []
   function generateTeamTables() {
     for (var i = 0; i < lineup.teeTimeCount; i++) {
       let teamName = "team" + i
       teamMembers = teamTables[teamName]
+      setManualCHCourseHandicaps(teamMembers)
       setEachTeamsHcpAndProgs()
       let teamHcp = teamHcpAndProgs[teamName][0]
       let teamProgs = teamHcpAndProgs[teamName][1]
