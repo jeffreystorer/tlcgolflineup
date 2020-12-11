@@ -9,12 +9,17 @@ import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 export default function LineupTable({ lineup }) {
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
+  const [showTeamHcp, setShowTeamHcp] = useState(false)
   const dataMode = "ghin"
   fetchGamesGHIN(dataMode, lineup.allPlayers)
 
   useEffect(() => {
     if (!refreshed) setRefreshed(true)
   }, [refreshed])
+
+  function handleShowTeamHcpChange() {
+    setShowTeamHcp(!showTeamHcp)
+  }
 
   let playersArray = createLineupTablePlayersArray(
     lineup.course,
@@ -192,6 +197,7 @@ export default function LineupTable({ lineup }) {
           teamHcp={teamHcp}
           teamProgs={teamProgs}
           teesSelected={lineup.teesSelected}
+          showTeamHcp={showTeamHcp}
         />
       )
     }
@@ -203,6 +209,15 @@ export default function LineupTable({ lineup }) {
       <br></br>
       <br></br>
       <div id="lineup-page" className="center background-white">
+        <input
+          type="checkbox"
+          id="showTeamHcp"
+          onChange={handleShowTeamHcpChange}
+          defaultChecked={showTeamHcp}
+        ></input>
+        <label htmlFor="showTeamHcp">Show Team Hcp</label>
+        <br></br>
+        <br></br>
         <table id="lineup-table" className="background-white">
           <div id="lineup-table-div" className="background-white">
             <thead className="lineup-table-head background-white">
