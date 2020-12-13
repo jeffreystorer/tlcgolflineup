@@ -47,11 +47,10 @@ export default function createLineupTablePlayersArrray(
   function compute(aPlayer, index) {
     strHcpIndex = aPlayer[3]
     hcpIndex = parseFloat(strHcpIndex)
-    let anIndex = hcpIndex.toFixed(1)
     let firstName = aPlayer[2]
     let lastName = aPlayer[1]
     gender = aPlayer[4]
-    let player = firstName + " " + lastName + " (" + anIndex + ")"
+    let player = firstName + " " + lastName + " (" + strHcpIndex + ")"
     let playerReturn = {
       id: Number(aPlayer[0]),
       playerName: player,
