@@ -10,7 +10,7 @@ export default function LineupTable({ lineup }) {
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
   const [showTeamHcp, setShowTeamHcp] = useState(false)
-  const dataMode = "ghin"
+  const dataMode = "roster"
   fetchGamesGHIN(dataMode, lineup.allPlayers)
 
   useEffect(() => {
