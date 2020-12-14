@@ -45,7 +45,7 @@ const TeamTable = ({
       )
     }
 
-    tds.push(<td key={uuidv4()}>{rows[i].teeChoice}</td>)
+    if (showTeamHcp) tds.push(<td key={uuidv4()}>{rows[i].teeChoice}</td>)
     return tds
   }
 
