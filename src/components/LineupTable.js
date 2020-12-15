@@ -209,13 +209,17 @@ export default function LineupTable({ lineup }) {
       <br></br>
       <br></br>
       <div id="lineup-page" className="center background-white">
-        <input
-          type="checkbox"
-          id="showTeamHcp"
-          onChange={handleShowTeamHcpChange}
-          defaultChecked={showTeamHcp}
-        ></input>
-        <label htmlFor="showTeamHcp">Show Team Hcp</label>
+        {lineup.progs069 < 1 && (
+          <>
+            <input
+              type="checkbox"
+              id="showTeamHcp"
+              onChange={handleShowTeamHcpChange}
+              defaultChecked={showTeamHcp}
+            ></input>
+            <label htmlFor="showTeamHcp">Show Team Hcp</label>
+          </>
+        )}
         <br></br>
         <br></br>
         <table id="lineup-table" className="background-white">

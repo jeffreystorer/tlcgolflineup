@@ -45,7 +45,8 @@ const TeamTable = ({
       )
     }
 
-    if (showTeamHcp) tds.push(<td key={uuidv4()}>{rows[i].teeChoice}</td>)
+    if (showTeamHcp || progs069 > 0)
+      tds.push(<td key={uuidv4()}>{rows[i].teeChoice}</td>)
     return tds
   }
 
@@ -62,7 +63,11 @@ const TeamTable = ({
       <tfoot className="team-table-footer">
         <tr>
           <td colSpan={teeCount + 2}>
-            {showTeamHcp ? <span>Team Hcp: {teamHcp}</span> : <></>}
+            {showTeamHcp || progs069 > 0 ? (
+              <span>Team Hcp: {teamHcp}</span>
+            ) : (
+              <></>
+            )}
             {progs069 > 0 ? (
               <span>
                 &nbsp;&nbsp;Team progs per {progs069}: {teamProgs}
