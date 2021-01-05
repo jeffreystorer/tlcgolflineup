@@ -7,6 +7,7 @@ import createLineupTablePlayersArray from "../functions/createLineupTablePlayers
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 
 export default function LineupTable({ lineup }) {
+  const [showFirstName, setShowFirstName] = useState(false)
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
   const [showTeamHcp, setShowTeamHcp] = useState(false)
@@ -20,8 +21,12 @@ export default function LineupTable({ lineup }) {
   function handleShowTeamHcpChange() {
     setShowTeamHcp(!showTeamHcp)
   }
+  function handleShowFirstNameChange() {
+    setShowFirstName(!showFirstName)
+  }
 
   let playersArray = createLineupTablePlayersArray(
+    showFirstName,
     lineup.course,
     lineup.game,
     lineup.games,
@@ -206,9 +211,15 @@ export default function LineupTable({ lineup }) {
 
   return (
     <>
-      <br></br>
-      <br></br>
       <div id="lineup-page" className="center background-white">
+        <input
+          type="checkbox"
+          id="showFirstName"
+          onChange={handleShowFirstNameChange}
+          defaultChecked={showFirstName}
+        ></input>
+        <label htmlFor="showFirstName">Show First Name</label>
+        <br></br>
         {lineup.progs069 < 1 && (
           <>
             <input

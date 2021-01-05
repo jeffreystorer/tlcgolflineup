@@ -3,6 +3,7 @@ import { get } from "./localStorage"
 import setRatingSlopePar from "./setRatingSlopePar"
 
 export default function createLineupTablePlayersArrray(
+  showFirstName,
   course,
   game,
   games,
@@ -50,7 +51,12 @@ export default function createLineupTablePlayersArrray(
     let firstName = aPlayer[2]
     let lastName = aPlayer[1]
     gender = aPlayer[4]
-    let player = firstName + " " + lastName + " (" + strHcpIndex + ")"
+    let player
+    if (showFirstName) {
+      player = firstName + " " + lastName + " (" + strHcpIndex + ")"
+    } else {
+      player = lastName + " (" + strHcpIndex + ")"
+    }
     let playerReturn = {
       id: Number(aPlayer[0]),
       playerName: player,
