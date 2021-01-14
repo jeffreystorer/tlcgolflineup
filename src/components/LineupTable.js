@@ -78,6 +78,7 @@ export default function LineupTable({ lineup }) {
     }
   }
 
+  let progAdjMessage = ""
   function setTeamHcpAndProgs(teamName) {
     let teamMembers = teamTables[teamName]
     let aTeamHcp = 0
@@ -87,6 +88,7 @@ export default function LineupTable({ lineup }) {
       teamMembers.forEach(computeHcpAndProgs)
       switch (Number(lineup.progAdj)) {
         case 0:
+          progAdjMessage = "**No threesome/foursome prog adjustment**"
           switch (Number(lineup.progs069)) {
             case 6:
               aTeamProgs = aTeamProgs / 3
@@ -96,14 +98,12 @@ export default function LineupTable({ lineup }) {
               break
             default:
               aTeamProgs = 0
-              break
           }
-          break
-        default:
           break
         case 3:
           switch (Number(lineup.progs069)) {
             case 6:
+              progAdjMessage = "**Threesome progs include +1 per 6**"
               if (playerCount === 3) {
                 aTeamProgs = aTeamProgs / 3 + 1
               } else {
@@ -111,6 +111,7 @@ export default function LineupTable({ lineup }) {
               }
               break
             case 9:
+              progAdjMessage = "**Threesome progs include +1.5 per 9**"
               if (playerCount === 3) {
                 aTeamProgs = aTeamProgs / 2 + 1.5
               } else {
@@ -119,12 +120,12 @@ export default function LineupTable({ lineup }) {
               break
             default:
               aTeamProgs = 0
-              break
           }
           break
         case 4:
           switch (Number(lineup.progs069)) {
             case 6:
+              progAdjMessage = "**Foursome progs include -1 per 6**"
               if (playerCount === 4) {
                 aTeamProgs = aTeamProgs / 3 - 1
               } else {
@@ -132,6 +133,7 @@ export default function LineupTable({ lineup }) {
               }
               break
             case 9:
+              progAdjMessage = "**Foursome progs include -1.5 per 9**"
               if (playerCount === 4) {
                 aTeamProgs = aTeamProgs / 2 - 1.5
               } else {
@@ -140,12 +142,11 @@ export default function LineupTable({ lineup }) {
               break
             default:
               aTeamProgs = 0
-              break
           }
           break
+        default:
       }
       let teamProgs = aTeamProgs.toFixed(1)
-      // @ts-ignore
       aTeamProgs = teamProgs
       teamHcpAndProgs[teamName][0] = aTeamHcp
       teamHcpAndProgs[teamName][1] = aTeamProgs
@@ -255,6 +256,18 @@ export default function LineupTable({ lineup }) {
               </tr>
             </tbody>
             <tfoot>
+              {lineup.progs069 > 0 && (
+                <>
+                  <tr>
+                    <td className="team-table-footer background-white"></td>
+                  </tr>
+                  <tr>
+                    <td className="team-table-footer background-white">
+                      {progAdjMessage}
+                    </td>
+                  </tr>
+                </>
+              )}
               <tr>
                 <td className="center text-area-cell background-white">
                   <textarea
