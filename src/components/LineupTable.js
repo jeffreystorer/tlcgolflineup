@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import TeamTable from "./TeamTable"
 import { v4 as uuidv4 } from "uuid"
 import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
+import getCourseName from "../functions/getCourseName"
 import getTeesSelectedArray from "../functions/getTeesSelectedArray"
 import createLineupTablePlayersArray from "../functions/createLineupTablePlayersArray"
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
@@ -10,6 +11,7 @@ export default function LineupTable({ lineup }) {
   const [showFirstName, setShowFirstName] = useState(false)
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
+  let courseName = getCourseName(lineup.course)
   const [showTeamHcp, setShowTeamHcp] = useState(false)
   const dataMode = "ghin"
   fetchGamesGHIN(dataMode, lineup.allPlayers)
@@ -238,11 +240,7 @@ export default function LineupTable({ lineup }) {
             <thead className="lineup-table-head background-white">
               <tr className="lineup-table-head background-white">
                 <td className="lineup-table-head background-white">
-                  {lineup.game +
-                    ", " +
-                    lineup.playingDate +
-                    " at " +
-                    lineup.course.toUpperCase()}
+                  {lineup.playingDate + " at " + courseName}
                 </td>
               </tr>
               <tr>
