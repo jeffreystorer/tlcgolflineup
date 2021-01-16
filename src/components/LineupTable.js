@@ -11,7 +11,7 @@ export default function LineupTable({ lineup }) {
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
   const [showTeamHcp, setShowTeamHcp] = useState(false)
-  const dataMode = "roster"
+  const dataMode = "ghin"
   fetchGamesGHIN(dataMode, lineup.allPlayers)
 
   useEffect(() => {
@@ -232,7 +232,6 @@ export default function LineupTable({ lineup }) {
             <label htmlFor="showTeamHcp">Show Team Hcp</label>
           </>
         )}
-        <br></br>
         <br></br>
         <table id="lineup-table" className="background-white">
           <div id="lineup-table-div" className="background-white">
