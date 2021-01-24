@@ -7,7 +7,7 @@ import getTeesSelectedArray from "../functions/getTeesSelectedArray"
 import createLineupTablePlayersArray from "../functions/createLineupTablePlayersArray"
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 
-export default function LineupTable({ lineup }) {
+export default function LineupTable({ lineupTitle, lineup }) {
   const [showFirstName, setShowFirstName] = useState(false)
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
@@ -21,10 +21,10 @@ export default function LineupTable({ lineup }) {
   }, [refreshed])
 
   function handleShowTeamHcpChange() {
-    setShowTeamHcp(!showTeamHcp)
+    setShowTeamHcp((prevState) => !prevState)
   }
   function handleShowFirstNameChange() {
-    setShowFirstName(!showFirstName)
+    setShowFirstName((prevState) => !prevState)
   }
 
   let playersArray = createLineupTablePlayersArray(
@@ -282,6 +282,7 @@ export default function LineupTable({ lineup }) {
         <br></br>
         <br></br>
         <ButtonDownloadScreenShot
+          title={lineupTitle}
           game={lineup.game}
           course={lineup.course.toUpperCase()}
           element="lineup-table-div"
