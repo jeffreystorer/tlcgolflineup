@@ -426,3 +426,7 @@ p {
 .background-white {
   background-color: white;
 }
+
+div#lineup-table-div {
+  padding: 15px 40px 15px 40px;
+}

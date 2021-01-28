@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react"
 import TeamTable from "./TeamTable"
 import { v4 as uuidv4 } from "uuid"
 import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
+import LineupPDF from "./LineupPDF"
 import getCourseName from "../functions/getCourseName"
 import getTeesSelectedArray from "../functions/getTeesSelectedArray"
 import createLineupTablePlayersArray from "../functions/createLineupTablePlayersArray"
@@ -285,10 +286,12 @@ export default function LineupTable({ lineupTitle, lineup }) {
           title={lineupTitle}
           game={lineup.game}
           course={lineup.course.toUpperCase()}
-          element="lineup-table-div"
+          lineupElement="lineup-table-div"
           format="JPEG"
           page="Lineup"
         />
+        <br></br>
+        <LineupPDF title={lineupTitle} lineupElement="lineup-table-div" />
       </div>
     </>
   )
