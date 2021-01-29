@@ -2,13 +2,15 @@ import React, { useState, useEffect } from "react"
 import TeamTable from "./TeamTable"
 import { v4 as uuidv4 } from "uuid"
 import ButtonDownloadScreenShot from "./ButtonDownloadScreenshot"
-import LineupPDF from "./LineupPDF"
 import getCourseName from "../functions/getCourseName"
 import getTeesSelectedArray from "../functions/getTeesSelectedArray"
 import createLineupTablePlayersArray from "../functions/createLineupTablePlayersArray"
 import fetchGamesGHIN from "../functions/fetchGamesGHIN"
+import domtoimage from "dom-to-image"
 
 export default function LineupTable({ lineupTitle, lineup }) {
+  const [screenShotURL, setScreenShotURL] = useState()
+  let lineupElement = "lineup-table-div"
   const [showFirstName, setShowFirstName] = useState(false)
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
@@ -20,6 +22,15 @@ export default function LineupTable({ lineupTitle, lineup }) {
   useEffect(() => {
     if (!refreshed) setRefreshed(true)
   }, [refreshed])
+
+  useEffect(() => {
+    domtoimage
+      .toJpeg(document.getElementById(lineupElement), { quality: 0.95 })
+      .then(function (dataUrl) {
+        //eslint-disable-next-line
+        setScreenShotURL(dataUrl)
+      })
+  })
 
   function handleShowTeamHcpChange() {
     setShowTeamHcp((prevState) => !prevState)
@@ -282,16 +293,7 @@ export default function LineupTable({ lineupTitle, lineup }) {
         </table>
         <br></br>
         <br></br>
-        <ButtonDownloadScreenShot
-          title={lineupTitle}
-          game={lineup.game}
-          course={lineup.course.toUpperCase()}
-          lineupElement="lineup-table-div"
-          format="JPEG"
-          page="Lineup"
-        />
-        <br></br>
-        <LineupPDF title={lineupTitle} lineupElement="lineup-table-div" />
+        <ButtonDownloadScreenShot title={lineupTitle} dataUrl={screenShotURL} />
       </div>
     </>
   )

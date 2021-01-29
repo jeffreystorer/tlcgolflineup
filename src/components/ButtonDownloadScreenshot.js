@@ -1,21 +1,20 @@
 import React from "react"
-import domtoimage from "dom-to-image"
+import LineupPDF from "./LineupPDF"
 
-const ButtonDownLoadScreenshot = ({ title, lineupElement }) => {
+const ButtonDownLoadScreenshot = ({ title, dataUrl }) => {
   function handleClick() {
-    domtoimage
-      .toJpeg(document.getElementById(lineupElement), { quality: 0.95 })
-      .then(function (dataUrl) {
-        var link = document.createElement("a")
-        link.download = title + ".jpeg"
-        link.href = dataUrl
-        link.click()
-      })
+    var link = document.createElement("a")
+    link.download = title + ".jpeg"
+    link.href = dataUrl
+    link.click()
   }
   return (
-    <button className="center" onClick={handleClick}>
-      Download Screenshot
-    </button>
+    <>
+      <button className="center" onClick={handleClick}>
+        Download Screenshot
+      </button>
+      <LineupPDF title={title} dataUrl={dataUrl} />
+    </>
   )
 }
 export default ButtonDownLoadScreenshot

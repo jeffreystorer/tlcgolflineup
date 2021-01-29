@@ -15,6 +15,7 @@
     "react-photo-collage": "^1.0.7",
     "react-scripts": "4.0.0",
     "recoil": "^0.1.2",
+    "styled-components": "^5.2.1",
     "use-visibility-change": "^0.3.0",
     "web-vitals": "^0.2.4",
     "workbox-background-sync": "^5.1.4",

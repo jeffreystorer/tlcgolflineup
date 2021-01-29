@@ -3,9 +3,11 @@ import { ReactPhotoCollage } from "react-photo-collage"
 import ButtonDownloadPDF from "./ButtonDownloadPDF"
 import "../styles/App.css"
 
-const LineupPDF = ({ lineupTitle, lineupElement }) => {
+const LineupPDF = ({ title, dataUrl }) => {
+  //eslint-disable-next-line
+  const [image, setImage] = React.useState(dataUrl)
   const img = new Image()
-  img.src = lineupImg
+  img.src = image
   let factor = 2.0
   let width = img.width * 2 * factor
   let widthPx = width.toString() + "px"
@@ -17,10 +19,10 @@ const LineupPDF = ({ lineupTitle, lineupElement }) => {
     height: [heightPx, heightPx],
     layout: [2, 2],
     photos: [
-      { src: lineup },
-      { src: lineup },
-      { src: lineup },
-      { src: lineup },
+      { src: dataUrl },
+      { src: dataUrl },
+      { src: dataUrl },
+      { src: dataUrl },
     ],
     showNumOfRemainingPhotos: false,
   }
@@ -30,11 +32,7 @@ const LineupPDF = ({ lineupTitle, lineupElement }) => {
   return (
     <>
       <div className="center">
-        <ButtonDownloadPDF
-          dimensions={imgDimensions}
-          title={lineupTitle}
-          pdfElement="div-collage"
-        />
+        <ButtonDownloadPDF dimensions={imgDimensions} title={title} />
       </div>
       <br></br>
       <div

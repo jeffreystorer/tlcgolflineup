@@ -1,13 +1,8 @@
 import React from "react"
-import domtoimage from "dom-to-image"
 import { jsPDF } from "jspdf"
+import domtoimage from "dom-to-image"
 
-const ButtonDownLoadPDF = ({
-  dimensions,
-  title,
-  lineupElement,
-  pdfElement,
-}) => {
+const ButtonDownLoadPDF = ({ dimensions, title }) => {
   const PAPER_DIMENSIONS = {
     width: 8.5,
     height: 11,
@@ -46,20 +41,9 @@ const ButtonDownLoadPDF = ({
     createPDF()
   }
 
-  /*   function createJPEG() {
-    domtoimage
-      .toJpeg(document.getElementById(lineupElement), { quality: 0.95 })
-      .then(function (dataUrl) {
-        var link = document.createElement("a")
-        link.download = title + ".jpeg"
-        link.href = dataUrl
-        link.click()
-      })
-  } */
-
   function createPDF() {
     domtoimage
-      .toJpeg(document.getElementById(pdfElement), { quality: 1.0 })
+      .toJpeg(document.getElementById("lineup-collage"), { quality: 1.0 })
       .then(function (dataUrl) {
         let x, y, w, h
         x = (PAPER_DIMENSIONS.width - imageDimensions(dimensions).width) / 2
@@ -73,7 +57,7 @@ const ButtonDownLoadPDF = ({
   }
   return (
     <button className="center" onClick={handleClick}>
-      Download Screenshot
+      Download PDF
     </button>
   )
 }
