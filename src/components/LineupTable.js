@@ -10,7 +10,6 @@ import domtoimage from "dom-to-image"
 
 export default function LineupTable({ lineupTitle, lineup }) {
   const [screenShotURL, setScreenShotURL] = useState()
-  let lineupElement = "lineup-table-div"
   const [showFirstName, setShowFirstName] = useState(false)
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
@@ -25,7 +24,7 @@ export default function LineupTable({ lineupTitle, lineup }) {
 
   useEffect(() => {
     domtoimage
-      .toJpeg(document.getElementById(lineupElement), { quality: 0.95 })
+      .toJpeg(document.getElementById("lineup-table-div"), { quality: 0.95 })
       .then(function (dataUrl) {
         //eslint-disable-next-line
         setScreenShotURL(dataUrl)

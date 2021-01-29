@@ -8,8 +8,8 @@ import {
   aGender,
 } from "../functions/fetchRoster"
 
-export default function fetchGamesGHIN(dataMode, players) {
-  console.log("Data Mode: ", dataMode)
+export default function fetchGamesGHIN(dataMode) {
+  let players = get("players")
   if (dataMode === "ghin") {
     let requests = []
     players.forEach(buildRequests)
@@ -30,6 +30,8 @@ export default function fetchGamesGHIN(dataMode, players) {
       function addData(item, index) {
         try {
           let firstName = data[index].golfers[0].FirstName
+          let rawName = firstName.toLowerCase()
+          firstName = capitalize(rawName)
           if (firstName.indexOf(".") > 0) firstName = firstName.toUpperCase()
           item[2] = firstName
         } catch (error) {
@@ -90,5 +92,10 @@ export default function fetchGamesGHIN(dataMode, players) {
       item[5] = aLocalNumber(roster, ghinNumber)
     }
     set("players", players)
+  }
+
+  const capitalize = (s) => {
+    if (typeof s !== "string") return ""
+    return s.charAt(0).toUpperCase() + s.slice(1)
   }
 }

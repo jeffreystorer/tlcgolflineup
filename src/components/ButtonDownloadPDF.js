@@ -43,7 +43,7 @@ const ButtonDownLoadPDF = ({ dimensions, title }) => {
 
   function createPDF() {
     domtoimage
-      .toJpeg(document.getElementById("lineup-collage"), { quality: 1.0 })
+      .toJpeg(document.getElementById("div-collage"), { quality: 1.0 })
       .then(function (dataUrl) {
         let x, y, w, h
         x = (PAPER_DIMENSIONS.width - imageDimensions(dimensions).width) / 2

@@ -13,7 +13,7 @@ const ButtonDownLoadScreenshot = ({ title, dataUrl }) => {
       <button className="center" onClick={handleClick}>
         Download Screenshot
       </button>
-      <LineupPDF title={title} dataUrl={dataUrl} />
+      <LineupPDF title={title} />
     </>
   )
 }
