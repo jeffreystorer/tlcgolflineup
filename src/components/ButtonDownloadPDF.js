@@ -57,7 +57,7 @@ const ButtonDownLoadPDF = ({ dimensions, title }) => {
   }
   return (
     <button className="center" onClick={handleClick}>
-      Download PDF
+      Download PDF (2x2 collage for handouts)
     </button>
   )
 }

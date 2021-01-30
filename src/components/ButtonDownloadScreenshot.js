@@ -11,9 +11,9 @@ const ButtonDownLoadScreenshot = ({ title, dataUrl }) => {
   return (
     <>
       <button className="center" onClick={handleClick}>
-        Download Screenshot
+        Download Screenshot (for emailing)
       </button>
-      <LineupPDF title={title} />
+      <LineupPDF title={title} dataUrl={dataUrl} />
     </>
   )
 }
