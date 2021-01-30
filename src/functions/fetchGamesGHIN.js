@@ -8,8 +8,7 @@ import {
   aGender,
 } from "../functions/fetchRoster"
 
-export default function fetchGamesGHIN(dataMode) {
-  let players = get("players")
+export default function fetchGamesGHIN(dataMode, players) {
   if (dataMode === "ghin") {
     let requests = []
     players.forEach(buildRequests)
