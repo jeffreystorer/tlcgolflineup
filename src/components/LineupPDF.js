@@ -1,12 +1,12 @@
-import * as React from "react"
+import React, { useState, useEffect } from "react"
 import { ReactPhotoCollage } from "react-photo-collage"
 import ButtonDownloadPDF from "./ButtonDownloadPDF"
 import domtoimage from "dom-to-image"
 import "../styles/App.css"
 
 const LineupPDF = ({ title }) => {
-  const [loading, setLoading] = React.useState(true)
-  const [screenShotURL, setScreenShotURL] = React.useState()
+  const [loading, setLoading] = useState(true)
+  const [screenShotURL, setScreenShotURL] = useState()
   const img = new Image()
   img.src = screenShotURL
   let factor = 2.0
@@ -29,14 +29,16 @@ const LineupPDF = ({ title }) => {
   }
   let styleWidth = imgDimensions.width + "px"
   let styleHeight = imgDimensions.height + "px"
-  React.useEffect(() => {
+  const Collage = () => <ReactPhotoCollage {...setting} />
+
+  useEffect(() => {
     domtoimage
       .toJpeg(document.getElementById("lineup-table-div"), { quality: 0.95 })
       .then(function (screenShotURL) {
         setScreenShotURL(screenShotURL)
         setLoading(false)
       })
-  }, [])
+  })
 
   return (
     <>
@@ -56,7 +58,7 @@ const LineupPDF = ({ title }) => {
               height: { styleHeight },
             }}
           >
-            <ReactPhotoCollage {...setting} />
+            <Collage />
           </div>
         </>
       )}
