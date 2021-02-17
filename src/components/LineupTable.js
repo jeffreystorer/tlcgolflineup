@@ -282,7 +282,7 @@ export default function LineupTable({ lineupTitle, lineup }) {
                     id="lineup-textarea"
                     // @ts-ignore
                     rows="8"
-                    cols="39"
+                    cols="41"
                     value={lineup.textAreaValue}
                   ></textarea>
                 </td>
