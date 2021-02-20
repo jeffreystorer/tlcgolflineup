@@ -4,8 +4,8 @@ import domtoimage from "dom-to-image"
 
 const ButtonDownLoadPDF = ({ dimensions, title }) => {
   const PAPER_DIMENSIONS = {
-    width: 8.5,
-    height: 11,
+    width: 8.16,
+    height: 10.56,
   }
 
   const PAPER_RATIO = PAPER_DIMENSIONS.width / PAPER_DIMENSIONS.height
@@ -35,7 +35,7 @@ const ButtonDownLoadPDF = ({ dimensions, title }) => {
   const doc = new jsPDF({
     orientation: "portrait",
     unit: "in",
-    format: [8.5, 11],
+    format: [8.16, 10.56],
   })
   function handleClick() {
     createPDF()
