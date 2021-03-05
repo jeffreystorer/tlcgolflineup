@@ -9,14 +9,14 @@ import fetchGamesGHIN from "../functions/fetchGamesGHIN"
 import domtoimage from "dom-to-image"
 
 export default function LineupTable({ lineupTitle, lineup }) {
+  const [loading, setLoading] = useState(true)
   const [screenShotURL, setScreenShotURL] = useState()
   const [showFirstName, setShowFirstName] = useState(false)
   const [refreshed, setRefreshed] = useState(false)
   let teesSelected = lineup.teesSelected
   let courseName = getCourseName(lineup.course)
   const [showTeamHcp, setShowTeamHcp] = useState(false)
-  const dataMode = "ghin"
-  fetchGamesGHIN(dataMode, lineup.allPlayers)
+  fetchGamesGHIN(setLoading, lineup.allPlayers)
 
   useEffect(() => {
     if (!refreshed) setRefreshed(true)
@@ -222,7 +222,7 @@ export default function LineupTable({ lineupTitle, lineup }) {
     }
     return TeamTables
   }
-
+  if (loading) return "Loading . . ."
   return (
     <>
       <div id="lineup-page" className="center background-white">
@@ -281,7 +281,7 @@ export default function LineupTable({ lineupTitle, lineup }) {
                   <textarea
                     id="lineup-textarea"
                     // @ts-ignore
-                    rows="8"
+                    rows="10"
                     cols="41"
                     value={lineup.textAreaValue}
                   ></textarea>
